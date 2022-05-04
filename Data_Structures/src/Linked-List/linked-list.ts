@@ -6,6 +6,7 @@ import { Node } from "./node";
  */
 export class LinkedList {
     private head: NODE | null = null;
+    private _length = 0;
     constructor(headValue: number | null = null) {
         // Zero must be considered as a valid node value.
         if (headValue || headValue === 0) {
@@ -24,6 +25,10 @@ export class LinkedList {
         console.log(values.join(" -> "));
     }
 
+    get length(): number {
+        return this._length;
+    }
+
     /**
      * Adds a new node with provided value at the end
      * of the list.
@@ -34,6 +39,7 @@ export class LinkedList {
         const newNode = new Node(value);
         if (!this.head) {
             this.head = newNode;
+            this._length += 1;
             return;
         }
 
@@ -43,6 +49,7 @@ export class LinkedList {
         }
 
         currentNode.next = newNode;
+        this._length += 1;
     }
 
     /**
@@ -93,6 +100,7 @@ export class LinkedList {
         }
 
         this.deleteNode(previousNode, nodeToDelete);
+        this._length -= 1;
     }
 
     private deleteNode(previousNode: Node | null, nodeToDelete: Node): void {

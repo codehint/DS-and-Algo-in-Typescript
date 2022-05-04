@@ -100,7 +100,6 @@ export class LinkedList {
         }
 
         this.deleteNode(previousNode, nodeToDelete);
-        this._length -= 1;
     }
 
     private deleteNode(previousNode: Node | null, nodeToDelete: Node): void {
@@ -108,8 +107,37 @@ export class LinkedList {
         // very first node.
         if (!previousNode) {
             this.head = nodeToDelete.next;
+            this._length -= 1;
             return;
         }
         previousNode.next = nodeToDelete.next;
+        this._length -= 1;
+    }
+
+    public deleteNodeByPosition(position: number): void {
+        if (!this.head) return;
+
+        if (!this.isValidPosition(position)) {
+            console.log(
+                `No element exist at this position in the list. Please enter a number between ${1} and ${
+                    this._length
+                }`
+            );
+            return;
+        }
+
+        let nodeToDelete = this.head;
+        let previousNode = null;
+
+        for (let index = 2; index <= position; index += 1) {
+            previousNode = nodeToDelete;
+            nodeToDelete = nodeToDelete.next as Node;
+        }
+
+        this.deleteNode(previousNode, nodeToDelete);
+    }
+
+    private isValidPosition(position: number): boolean {
+        return position > 0 && position <= this._length;
     }
 }

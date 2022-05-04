@@ -114,6 +114,11 @@ export class LinkedList {
         this._length -= 1;
     }
 
+    /**
+     * Deletes the element at the specified position in the list.
+     * @param { number } position - position of the element to delete
+     * @returns { void }
+     */
     public deleteNodeByPosition(position: number): void {
         if (!this.head) return;
 

@@ -44,4 +44,64 @@ export class LinkedList {
 
         currentNode.next = newNode;
     }
+
+    /**
+     * Finds and returns the node by given value, if found,
+     * otherwise null;
+     * @param { number } value
+     * @returns { Node | null }
+     */
+    public findNodeByValue(value: number): Node | null {
+        if (!this.head) return null;
+        let nodeToReturn = null;
+        let currentNode: NODE | null = this.head;
+        while (currentNode) {
+            if (currentNode.value === value) {
+                nodeToReturn = currentNode;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+
+        if (!nodeToReturn) console.log("Value not found in the list.");
+
+        return nodeToReturn;
+    }
+
+    /**
+     * Deletes the node by provided value from the list.
+     * @param { number } value
+     * @returns { void }
+     */
+    public deleteNodeByValue(value: number): void {
+        if (!this.head) return;
+        let previousNode = null;
+        let nodeToDelete = null;
+        let currentNode: NODE | null = this.head;
+        while (currentNode) {
+            if (currentNode.value === value) {
+                nodeToDelete = currentNode;
+                break;
+            }
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        if (!nodeToDelete) {
+            console.log("Value not found in the list");
+            return;
+        }
+
+        this.deleteNode(previousNode, nodeToDelete);
+    }
+
+    private deleteNode(previousNode: Node | null, nodeToDelete: Node): void {
+        // 'previousNode' will be 'null' if user wants to delete the
+        // very first node.
+        if (!previousNode) {
+            this.head = nodeToDelete.next;
+            return;
+        }
+        previousNode.next = nodeToDelete.next;
+    }
 }

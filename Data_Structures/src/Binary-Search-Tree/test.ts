@@ -11,6 +11,6 @@ bst.addNewVertex(6, INSERTION_STRATEGY.Recursive);
 console.log("Before Deletion");
 bst.printPreOrder(bst.root);
 
-bst.root = bst.delete(4, bst.root);
+bst.deleteVertex(4);
 console.log("After Deletion");
 bst.printPreOrder(bst.root);

@@ -2,12 +2,16 @@ import { VERTEX, INSERTION_STRATEGY } from "./interfaces";
 import { Vertex } from "./vertex";
 
 export class BinarySearchTree {
-    public root: VERTEX | null = null;
+    private _root: VERTEX | null = null;
 
     constructor(rootValue: number | null = null) {
         if (rootValue || rootValue === 0) {
             this.addNewVertex(rootValue);
         }
+    }
+
+    get root(): Vertex | null {
+        return this._root;
     }
 
     /**
@@ -20,13 +24,13 @@ export class BinarySearchTree {
     public addNewVertex(value: number, strategy?: INSERTION_STRATEGY): void {
         const newVertex = this.getNewVertex(value);
 
-        // If root is 'null' then just assign the value to the root.
-        if (!this.root) {
-            this.root = newVertex;
+        // If _root is 'null' then just assign the value to the _root.
+        if (!this._root) {
+            this._root = newVertex;
             return;
         }
 
-        // To add a new vertex with non null root, we've to find the right place
+        // To add a new vertex with non null _root, we've to find the right place
         // for provided value in the tree.
 
         if (!strategy || strategy === INSERTION_STRATEGY.Iterative) {
@@ -34,7 +38,7 @@ export class BinarySearchTree {
             this.addIteratively(value);
         } else if (strategy === INSERTION_STRATEGY.Recursive) {
             // Add new vertex recursively.
-            this.addRecursively(value, this.root);
+            this.addRecursively(value, this._root);
         } else {
             console.log(
                 `Please provide a valid insertion strategy i.e ${INSERTION_STRATEGY.Iterative} | ${INSERTION_STRATEGY.Recursive}`
@@ -60,7 +64,7 @@ export class BinarySearchTree {
     }
 
     private addIteratively(value: number): void {
-        let vertexInConsideration: Vertex = this.root as Vertex;
+        let vertexInConsideration: Vertex = this._root as Vertex;
         while (true) {
             // Insertion of duplicate keys are not allowed in this implementation.
             if (value === vertexInConsideration.value) {
@@ -88,7 +92,11 @@ export class BinarySearchTree {
         }
     }
 
-    public delete(value: number, vertex: Vertex | null): Vertex | null {
+    public deleteVertex(value: number): void {
+        this._root = this.delete(value, this._root);
+    }
+
+    private delete(value: number, vertex: Vertex | null): Vertex | null {
         if (!vertex) return null;
 
         if (vertex.value === value) {

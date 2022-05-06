@@ -156,4 +156,35 @@ export class BinarySearchTree {
         }
         return smallestVertex.value;
     }
+
+    /**
+     * Returns 'true' if given value exists in the BST.
+     * @param { number } value
+     * @param  { Vertex | null } vertex
+     * @returns { boolean }
+     */
+    public search(value: number, vertex: Vertex | null): boolean {
+        if (vertex === null) return false;
+        if (vertex.value === value) return true;
+        if (value < vertex.value) return this.search(value, vertex.left);
+        if (value > vertex.value) return this.search(value, vertex.right);
+        return false;
+    }
+
+    /**
+     * Check if the tree with given vertex is a BST.
+     * @param { Vertex | null } vertex
+     * @returns { boolean }
+     */
+    public isBST(vertex: Vertex | null): boolean {
+        if (!vertex) return true;
+
+        if (
+            (vertex.left && vertex.left.value > vertex.value) ||
+            (vertex.right && vertex.right.value < vertex.value)
+        )
+            return false;
+
+        return this.isBST(vertex.left) && this.isBST(vertex.right);
+    }
 }

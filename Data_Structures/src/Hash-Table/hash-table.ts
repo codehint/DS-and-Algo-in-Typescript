@@ -30,6 +30,15 @@ export class HashTable {
     }
 
     /**
+     * Returns the stored data in the hash table against the given hash
+     * @param { number } hash
+     * @returns { string[] }
+     */
+    public getData(hash: number): string[] {
+        return this.table[hash] || [];
+    }
+
+    /**
      * This hash function calculates the hash value of the given
      * string based on the unicode values of first two characters.
      * @param { string } key

@@ -6,3 +6,4 @@ hashTable.store("Test");
 hashTable.store("Udacity");
 console.log(hashTable.lookUp("Test"));
 console.log(hashTable.lookUp("Udacity"));
+console.log(hashTable.getData(8600));

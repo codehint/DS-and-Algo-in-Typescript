@@ -38,7 +38,7 @@ export class HashTable {
     public calculate_hash_value(key: string): number {
         if (key.length < 2) {
             console.log("Key must be more than 1 character long.");
-            -1;
+            return -1;
         }
 
         return key.charCodeAt(0) * 100 + key.charCodeAt(1);

@@ -1,4 +1,5 @@
 import { AdjacencyList } from "./interface";
+import { BFS, DFS } from "../../Algorithms";
 
 /**
  * Encapsulates the logic of building and working with the
@@ -50,12 +51,20 @@ export default class DirectedGraph {
     }
 
     /**
-     * Add a new edge between given source and target nodes
+     * Add a new edge between given source and target nodes.
+     * The method will not add cyclic edges
      * @param { string } sourceNode
      * @param { string } targetNode
      * @returns { this }
      */
     public addEdge(sourceNode: string, targetNode: string): this {
+        if (this.hasEdge(sourceNode, targetNode)) {
+            console.log(
+                `Cannot add this edge '${sourceNode} -> ${targetNode}'. This will create a cycle.`
+            );
+            return this;
+        }
+
         if (!this.hasNode(sourceNode)) {
             this.addNode(sourceNode);
         }
@@ -70,5 +79,27 @@ export default class DirectedGraph {
         }
 
         return this;
+    }
+
+    private hasEdge(sourceNode: string, targetNode: string): boolean {
+        if (!this.hasNode(sourceNode) || !this.hasNode(targetNode))
+            return false;
+        return (
+            this.getNeighbors(sourceNode).includes(targetNode) ||
+            this.getNeighbors(targetNode).includes(sourceNode)
+        );
+    }
+
+    public hasPath(sourceNode: string, targetNode: string): boolean {
+        if (!this.hasNode(sourceNode) || !this.hasNode(targetNode)) {
+            console.log(
+                "Either source or target node does not exist in the graph."
+            );
+            return false;
+        }
+
+        /** Apply breadth/depth first algo to check if path exists */
+        return BFS(this, targetNode, sourceNode);
+        // return DFS(this, targetNode, sourceNode);
     }
 }

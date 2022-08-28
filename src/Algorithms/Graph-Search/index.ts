@@ -1,2 +1,3 @@
 import BFS from "./breadth-first";
-export { BFS };
+import DFS from "./depth-first";
+export { BFS, DFS };

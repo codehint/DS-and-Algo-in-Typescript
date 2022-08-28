@@ -10,7 +10,7 @@ const search = (
     if (source) {
         queue.enqueue(source);
     } else {
-        queue.bulkEnqueue(Object.keys(graph));
+        queue.bulkEnqueue(graph.nodes);
     }
 
     while (!queue.isEmpty) {

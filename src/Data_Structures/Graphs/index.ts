@@ -1,2 +1,1 @@
-import DirectedGraph from "./directed";
-export { DirectedGraph };
+export { Graph } from "./graph";

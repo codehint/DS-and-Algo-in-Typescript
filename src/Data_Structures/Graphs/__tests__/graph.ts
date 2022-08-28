@@ -1,6 +1,7 @@
-import DirectedGraph from "../directed";
+import { Graph } from "../graph";
+import { GraphType } from "../constants";
 
-const graph = new DirectedGraph();
+const graph = new Graph(GraphType.Directed);
 
 graph
     .addNode("a")
@@ -17,7 +18,8 @@ graph
     .addEdge("b", "a")
     .addEdge("e", "f")
     .addEdge("f", "d")
-    .addEdge("b", "f");
+    .addEdge("b", "f")
+    .addEdge("e", "a");
 console.log(graph.getNeighbors("b"));
 console.log(`The graph has ${graph.totalEdges} edges.`);
 

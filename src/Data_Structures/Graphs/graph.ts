@@ -1,14 +1,23 @@
 import { AdjacencyList } from "./interface";
 import { BFS, DFS } from "../../Algorithms";
+import { GraphType } from "./constants";
 
 /**
- * Encapsulates the logic of building and working with the
- * directed graphs.
+ * Encapsulates the logic of building and working with the graphs.
  */
-export default class DirectedGraph {
+export class Graph {
     private _adjacencyList: AdjacencyList = {};
     private _numberOfNodes: number = 0;
     private _numberOfEdges: number = 0;
+    private _type: GraphType = GraphType.Directed;
+
+    constructor(type: GraphType) {
+        this._type = type;
+    }
+
+    public isDirected(): boolean {
+        return this._type === GraphType.Directed;
+    }
 
     public get totalNodes(): number {
         return this._numberOfNodes;
@@ -58,7 +67,9 @@ export default class DirectedGraph {
      * @returns { this }
      */
     public addEdge(sourceNode: string, targetNode: string): this {
-        if (this.hasEdge(sourceNode, targetNode)) {
+        const isDirected = this.isDirected();
+
+        if (isDirected && this.hasEdge(sourceNode, targetNode)) {
             console.log(
                 `Cannot add this edge '${sourceNode} -> ${targetNode}'. This will create a cycle.`
             );
@@ -75,6 +86,14 @@ export default class DirectedGraph {
 
         if (!this.getNeighbors(sourceNode).includes(targetNode)) {
             this._adjacencyList[sourceNode].push(targetNode);
+            this._numberOfEdges += 1;
+        }
+
+        if (
+            !isDirected &&
+            !this.getNeighbors(targetNode).includes(sourceNode)
+        ) {
+            this._adjacencyList[targetNode].push(sourceNode);
             this._numberOfEdges += 1;
         }
 

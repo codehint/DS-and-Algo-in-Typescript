@@ -1,6 +1,7 @@
-import { DirectedGraph, Stack } from "../../Data_Structures";
+import { Graph, Stack } from "../../Data_Structures";
 
-const search = (graph: DirectedGraph, target: string, source?: string) => {
+const search = (graph: Graph, target: string, source?: string) => {
+    const visitedNodes = new Set<string>();
     const stack = new Stack();
 
     if (source) {
@@ -11,6 +12,10 @@ const search = (graph: DirectedGraph, target: string, source?: string) => {
 
     while (!stack.isEmpty) {
         const currentNode = stack.pop();
+
+        if (visitedNodes.has(currentNode)) continue;
+        visitedNodes.add(currentNode);
+
         if (currentNode === target) return true;
         const neighborNodes = graph.getNeighbors(currentNode);
         stack.bulkPush(neighborNodes);

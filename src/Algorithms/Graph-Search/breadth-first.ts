@@ -9,7 +9,16 @@ import { Graph, Queue } from "../../Data_Structures";
  * @returns { boolean }
  */
 const search = (graph: Graph, target: string, source?: string): boolean => {
+    /**
+     * Initialize a set to keep track of the visited nodes in
+     * order to avoid infinite loops.
+     * */
     const visitedNodes = new Set<string>();
+
+    /**
+     * Initialize a queue to keep track of the next node to be
+     * checked during the execution.
+     */
     const queue = new Queue();
 
     if (source) {

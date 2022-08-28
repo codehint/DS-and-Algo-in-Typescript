@@ -1,5 +1,13 @@
 import { Graph, Queue } from "../../Data_Structures";
 
+/**
+ * Function implements the breadth first algorithm to check if there
+ * exists a path from source to target node.
+ * @param { Graph } graph
+ * @param { string } target
+ * @param { string } source
+ * @returns { boolean }
+ */
 const search = (graph: Graph, target: string, source?: string): boolean => {
     const visitedNodes = new Set<string>();
     const queue = new Queue();

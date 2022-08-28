@@ -1,10 +1,7 @@
-import { DirectedGraph, Queue } from "../../Data_Structures";
+import { Graph, Queue } from "../../Data_Structures";
 
-const search = (
-    graph: DirectedGraph,
-    target: string,
-    source?: string
-): boolean => {
+const search = (graph: Graph, target: string, source?: string): boolean => {
+    const visitedNodes = new Set<string>();
     const queue = new Queue();
 
     if (source) {
@@ -15,6 +12,10 @@ const search = (
 
     while (!queue.isEmpty) {
         const currentNode = queue.dequeue();
+
+        if (visitedNodes.has(currentNode)) continue;
+        visitedNodes.add(currentNode);
+
         if (currentNode === target) return true;
         const neighborNodes = graph.getNeighbors(currentNode);
         queue.bulkEnqueue(neighborNodes);

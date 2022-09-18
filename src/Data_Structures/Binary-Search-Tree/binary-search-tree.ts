@@ -21,13 +21,13 @@ export class BinarySearchTree {
      * @param { number } value
      * @param { INSERTION_STRATEGY } strategy
      */
-    public addNewVertex(value: number, strategy?: INSERTION_STRATEGY): void {
+    public addNewVertex(value: number, strategy?: INSERTION_STRATEGY): this {
         const newVertex = this.getNewVertex(value);
 
         // If _root is 'null' then just assign the value to the _root.
         if (!this._root) {
             this._root = newVertex;
-            return;
+            return this;
         }
 
         // To add a new vertex with non null _root, we've to find the right place
@@ -44,6 +44,7 @@ export class BinarySearchTree {
                 `Please provide a valid insertion strategy i.e ${INSERTION_STRATEGY.Iterative} | ${INSERTION_STRATEGY.Recursive}`
             );
         }
+        return this;
     }
 
     private addRecursively(value: number, vertex: Vertex | null): Vertex {
